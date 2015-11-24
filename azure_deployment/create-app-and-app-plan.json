@@ -1,0 +1,62 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appServiceName": {
+      "type": "String"
+    },
+    "appServicePlanLocation": {
+      "type": "String"
+    },
+    "appServicePlanName": {
+      "type": "String"
+    },
+    "appServicePlanSkuName": {
+      "type": "String"
+    },
+    "appServicePlanSkuTier": {
+      "type": "String"
+    },
+    "appServicePlanSkuFamily": {
+      "type": "String"
+    },
+    "appServicePlanSkuSize": {
+      "type": "String"
+    }
+  },
+  "resources": [
+    {
+      "location": "[parameters('appServicePlanLocation')]",
+      "name": "[parameters('appServiceName')]",
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2014-06-01",
+      "tags": {
+        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('appServicePlanName'))]": "empty"
+      },
+      "dependsOn": [
+        "[concat('Microsoft.Web/serverfarms/', parameters('appServicePlanName'))]"
+      ],
+      "kind": "webApp",
+      "properties": {
+        "name": "[parameters('appServiceName')]",
+        "serverFarm": "[parameters('appServicePlanName')]",
+        "kind": "webApp"
+      }
+    },
+    {
+      "location": "[parameters('appServicePlanLocation')]",
+      "name": "[parameters('appServicePlanName')]",
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2015-08-01",
+      "properties": {
+        "name": "[parameters('appServicePlanName')]"
+      },
+      "sku": {
+        "name": "[parameters('appServicePlanSkuName')]",
+        "tier": "[parameters('appServicePlanSkuTier')]",
+        "family": "[parameters('appServicePlanSkuFamily')]",
+        "size": "[parameters('appServicePlanSkuSize')]"
+      }
+    }
+  ]
+}

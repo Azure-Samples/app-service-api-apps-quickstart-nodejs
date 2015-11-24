@@ -18,12 +18,12 @@ var port = process.env.PORT || 8000;
  app.use(swaggerize({
      api: path.resolve('./config/api.json'), // change two
      handlers: path.resolve('./handlers'),
-     docspath: '/swagger' // change three
+     docspath: '/swagger/docs/v1' // change three
  }));
 
  // change four
- app.use('/docs', swaggerUi({
-   docs: '/swagger'  
+ app.use('/swagger', swaggerUi({
+   docs: '/swagger/docs/v1'  
  }));
 
  server.listen(port, function () {
