@@ -9,7 +9,7 @@
 	"schemes": ["http", "https"],
   	"basePath": "/",
 	"paths": {
-		"/api/contacts": {
+		"/contacts": {
 			"get": {
 				"tags": ["Contacts"],
 				"operationId": "contacts_get",
@@ -30,7 +30,7 @@
 				"deprecated": false
 			}
 		},
-		"/api/contacts/{id}": {
+		"/contacts/{id}": {
 			"get": {
 				"tags": ["Contacts"],
 				"operationId": "contacts_getById",
